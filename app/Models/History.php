@@ -13,6 +13,7 @@ class History extends Model
         'advice',
         'user_id'
     ];
+    protected $table = 'historys';
 
      public function user(){
      return $this->belongsTo(User::class,'user_id');
