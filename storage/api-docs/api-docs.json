@@ -1,0 +1,649 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "medical API",
+        "description": "API for medical advices and finding doctors.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/ai/health-advice": {
+            "post": {
+                "tags": [
+                    "Ai"
+                ],
+                "operationId": "897f020570435899ac0e3f3a519b9f7e",
+                "responses": {
+                    "200": {
+                        "description": "ai-health-advice"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/ai/latest-advice ": {
+            "get": {
+                "tags": [
+                    "Ai"
+                ],
+                "operationId": "570591b3743c99a84cdbbbc9bd8d49a3",
+                "responses": {
+                    "200": {
+                        "description": "advice"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/ai/historys": {
+            "get": {
+                "tags": [
+                    "Ai"
+                ],
+                "operationId": "943d30cff5ee7498c7173d004c3febb3",
+                "responses": {
+                    "200": {
+                        "description": "Ai advice History"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "77f0166329838d9888ad817b3cd0d868",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "regiter successfuly"
+                    },
+                    "401": {
+                        "description": "Registration failed"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "4cdc26017ae898ce9bc5eae843bde2b2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "aa132a4898899e8e0910d300da58839f",
+                "responses": {
+                    "200": {
+                        "description": "logout ok"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/appointments": {
+            "get": {
+                "tags": [
+                    "appointments"
+                ],
+                "operationId": "5d0767c09cc36d98e5236d41401aaa94",
+                "responses": {
+                    "200": {
+                        "description": "all appointments"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "appointments"
+                ],
+                "operationId": "95afb1ff37711df67b6c5a5f17ca09d8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "appointment_date",
+                                    "status",
+                                    "doctor_id"
+                                ],
+                                "properties": {
+                                    "appointment_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "pending",
+                                            "confirmed",
+                                            "cancelled"
+                                        ]
+                                    },
+                                    "doctor_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "add appointments successfuly"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/appointments/{id}": {
+            "get": {
+                "tags": [
+                    "appointments"
+                ],
+                "operationId": "f9770f0d0e1a1688722056ed5fd9a7ed",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "symptoms"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "appointments"
+                ],
+                "operationId": "a4923a909b46490a814ffef3d4853c02",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "symptoms"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/doctors": {
+            "get": {
+                "tags": [
+                    "doctors"
+                ],
+                "operationId": "c148ec5f1cd21d7b85793e10d968b7d1",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/doctors/{id}": {
+            "get": {
+                "tags": [
+                    "doctors"
+                ],
+                "operationId": "4d5cb096a709f16e96a4100369d69651",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "doctors"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/search_doctors": {
+            "get": {
+                "tags": [
+                    "doctors"
+                ],
+                "operationId": "6360db46be58cbaba28082aff58f66dc",
+                "parameters": [
+                    {
+                        "name": "specialty",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "doctors"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/test": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Test endpoint",
+                "operationId": "b616f33e864918d6a9d0c6e9a21e8b3c",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/symptoms": {
+            "get": {
+                "tags": [
+                    "symptoms"
+                ],
+                "operationId": "8db894975ef7b212b94fd6cf6f1638d9",
+                "responses": {
+                    "200": {
+                        "description": "all symptoms"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "symptoms"
+                ],
+                "operationId": "80850cc8ac7494534447f3576aec01e9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "level",
+                                    "date_recorded"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "level": {
+                                        "type": "string",
+                                        "enum": [
+                                            "mild",
+                                            "moderate",
+                                            "severe"
+                                        ]
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "date_recorded": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "notes": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "add symptoms successfuly"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/symptoms/{id}": {
+            "get": {
+                "tags": [
+                    "symptoms"
+                ],
+                "operationId": "7e083d7cb09feeeeb8315597a8276914",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "symptoms"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "symptoms"
+                ],
+                "operationId": "766cd7e732cd940be035a305b2b81788",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "level",
+                                    "date_recorded"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "level": {
+                                        "type": "string",
+                                        "enum": [
+                                            "mild",
+                                            "moderate",
+                                            "severe"
+                                        ]
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "date_recorded": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "notes": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "update symptoms successfuly"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "symptoms"
+                ],
+                "operationId": "8a0f766f2198273700fc3d288baa3252",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "deleted symptoms"
+                    },
+                    "401": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Ai",
+            "description": "Ai"
+        },
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "appointments",
+            "description": "appointments"
+        },
+        {
+            "name": "doctors",
+            "description": "doctors"
+        },
+        {
+            "name": "Test",
+            "description": "Test"
+        },
+        {
+            "name": "symptoms",
+            "description": "symptoms"
+        }
+    ]
+}
