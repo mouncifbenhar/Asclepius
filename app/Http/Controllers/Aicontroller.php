@@ -10,7 +10,15 @@ use OpenApi\Attributes as OA;
 class Aicontroller extends Controller
 {
     
-
+#[OA\Post(
+    path:'/ai/health-advice',
+    tags:['Ai'],
+    security:[['sanctum' => []]],
+    responses:[
+        new OA\Response(response:200 , description:"ai-health-advice"),
+        new OA\Response(response:401 ,description: 'failed')
+       ]
+)]
 
        public function Aihealth_advice(){
        $Symptom = Symptom::where('user_id',auth()->id())->orderby('created_at','desc')->first();
@@ -19,7 +27,15 @@ class Aicontroller extends Controller
     
 }
 //-------------------------------------------------------------------------------------------------------
-
+#[OA\Get(
+    path:'/ai/latest-advice ',
+    tags:['Ai'],
+    security:[['sanctum' => []]],
+    responses:[
+        new OA\Response(response:200 , description:"advice"),
+        new OA\Response(response:401 ,description: 'failed')
+       ]
+)]
 
 public function latest_advice(){
       
@@ -31,6 +47,15 @@ public function latest_advice(){
 //--------------------------------------------------------------------------------------------
 
 
+#[OA\Get(
+    path:'/ai/historys',
+    tags:['Ai'],
+    security:[['sanctum' => []]],
+    responses:[
+        new OA\Response(response:200 , description:"Ai advice History"),
+        new OA\Response(response:401 ,description: 'failed')
+       ]
+)]
 public function index(){
      $advices = History::where('user_id',auth()->id())->get();
 
