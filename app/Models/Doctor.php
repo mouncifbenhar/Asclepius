@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model
 {
-    
+     protected $fillable = [
+         'name',
+         'specialty',
+         'city',
+         'yearsofexperience',
+         'consultation_price',
+         'available_days'
+    ];
+    public function appointments(){
+        return $this->hasMany(Appointment::class);
+    }
 }
