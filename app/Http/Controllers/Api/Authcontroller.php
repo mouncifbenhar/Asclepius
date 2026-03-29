@@ -16,7 +16,25 @@ class Authcontroller extends Controller
 
 
 
-
+#[OA\Post(
+    path:'/register',
+    tags:['Auth'],
+    requestBody: new OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+               required: ["name","email","password"],
+               properties: [
+                new OA\Property(property:"name",type:"string"),
+                new OA\Property(property:"email",type:"string"),
+                new OA\Property(property:"password",type:"string")
+               ]
+        )
+    ),
+    responses:[
+        new OA\Response(response:200 , description:"regiter successfuly"),
+        new OA\Response(response:401 ,description: 'Registration failed')
+    ]
+)]
 
     public function register(Request $request){
       
@@ -35,6 +53,25 @@ class Authcontroller extends Controller
     }
 
 //--------------------------------------------------------------------------
+
+ #[OA\Post(
+    path: '/login',
+    tags: ['Auth'],
+    requestBody: new OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            required: ["email","password"],
+            properties: [
+                new OA\Property(property: "email", type: "string"),
+                new OA\Property(property: "password", type: "string")
+            ]
+        )
+    ),
+    responses: [
+        new OA\Response(response: 200, description: 'Login success'),
+        new OA\Response(response: 401, description: 'Unauthorized')
+    ]
+)]
 
      public function login(Request $request){
         
@@ -60,7 +97,14 @@ class Authcontroller extends Controller
 
 
 
-    
+    #[OA\Post(
+        path:"/logout",
+        tags:['Auth'],
+        security:[['sanctum'=>[]]],
+        responses:[
+            new OA\Response(response:200, description:"logout ok")
+        ]
+    )]
 
      public function logout(Request $request){
         $request->user()->tokens()->delete();
