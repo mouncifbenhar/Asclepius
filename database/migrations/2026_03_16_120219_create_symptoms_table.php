@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('symptoms', function (Blueprint $table) {
-            
+            $table->id();
+            $table->string('name');
+            $table->enum('level',['mild','moderate','severe']);
+            $table->string('description')->nullable();
+            $table->date('date_recorded');
+            $table->json('notes')->nullable();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
